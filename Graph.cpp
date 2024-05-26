@@ -2,12 +2,12 @@
 using namespace ariel;
 
 // helper function declaration
-bool isContain(const Graph& other, const Graph& g);
+bool isContain(const Graph& other, const Graph& graph);
 //  end function declaration
 
 void Graph::loadGraph(vector<vector<int>> temp_graph) {
     this->mat = temp_graph;
-    int size = temp_graph.size();
+    size_t size = temp_graph.size();
 
     for (size_t i = 0; i < size; i++) {
         if (temp_graph[i].size() != size) {
@@ -32,7 +32,7 @@ void Graph::loadGraph(vector<vector<int>> temp_graph) {
 }
 
 void Graph::printGraph() {
-    int size = this->mat.size();
+    size_t size = this->mat.size();
     bool sym = true;
     int num_of_edges = 0;
     for (size_t i = 0; i < size; i++) {
@@ -217,7 +217,7 @@ bool Graph::operator!=(const Graph& other) const {
     return !(other == *this);
 }
 
-Graph Graph::operator*(double num) const {
+Graph Graph::operator*(int num) const {
     Graph newGraph = *this;
     for (size_t i = 0; i < newGraph.getGraph().size(); i++) {
         for (size_t j = 0; j < newGraph.getGraph().size(); j++) {
@@ -237,8 +237,8 @@ Graph Graph::operator*(const Graph& other) const {
     for (size_t i = 0; i < this->getGraph().size(); i++) {
         for (size_t j = 0; j < this->getGraph().size(); j++) {
             int sum = 0;
-            for (size_t t = 0; t < this->getGraph().size(); t++) {
-                sum = sum + this->getGraph()[i][t] * other.getGraph()[t][j];
+            for (size_t index = 0; index < this->getGraph().size(); index++) {
+                sum = sum + this->getGraph()[i][index] * other.getGraph()[index][j];
             }
             newGraph.getGraph()[i][j] = sum;
         }
@@ -256,7 +256,7 @@ Graph& Graph::operator*=(const Graph& other) {
     return *this;
 }
 
-Graph& Graph::operator*=(const double num) {
+Graph& Graph::operator*=(const int num) {
     for (size_t i = 0; i < this->getGraph().size(); i++) {
         for (size_t j = 0; j < this->getGraph().size(); j++) {
             this->getGraph()[i][j] = num * this->getGraph()[i][j];
@@ -265,7 +265,7 @@ Graph& Graph::operator*=(const double num) {
     return *this;
 }
 
-Graph& Graph::operator/=(const double num) {
+Graph& Graph::operator/=(const int num) {
     if (num == 0) {
         throw std::invalid_argument("You cant divide in 0\n");
     }
@@ -277,17 +277,17 @@ Graph& Graph::operator/=(const double num) {
     return *this;
 }
 
-bool isContain(const Graph& other, const Graph& g) {
-    if (g.getGraph().size() < other.getGraph().size()) {
+bool isContain(const Graph& other, const Graph& graph) {
+    if (graph.getGraph().size() < other.getGraph().size()) {
         return false;
     }
 
-    for (size_t i = 0; i <= g.getGraph().size() - other.getGraph().size(); i++) {
-        for (size_t j = 0; j <= g.getGraph().size() - other.getGraph().size(); j++) {
+    for (size_t i = 0; i <= graph.getGraph().size() - other.getGraph().size(); i++) {
+        for (size_t j = 0; j <= graph.getGraph().size() - other.getGraph().size(); j++) {
             bool contain = true;  // Checks if the submatrix is ​​equal to other
             for (size_t k = 0; k < other.getGraph().size(); k++) {
-                for (size_t m = 0; m < other.getGraph().size(); m++) {
-                    if (g.getGraph()[i + k][j + m] != other.getGraph()[k][m]) {
+                for (size_t index = 0; index < other.getGraph().size(); index++) {
+                    if (graph.getGraph()[i + k][j + index] != other.getGraph()[k][index]) {
                         contain = false;  // Marker then other isnt contine in this
                         break;
                     }

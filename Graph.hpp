@@ -45,12 +45,12 @@ class Graph {
     bool operator==(const Graph& other) const;
     bool operator!=(const Graph& other) const;
 
-    Graph operator*(double num) const;
+    Graph operator*(int num) const;
     Graph operator*(const Graph& other) const;
     Graph& operator*=(const Graph& other);
-    Graph& operator*=(const double num);
+    Graph& operator*=(const int num);
 
-    Graph& operator/=(const double num);
+    Graph& operator/=(const int num);
 
     friend std::ostream& operator<<(std::ostream& st, const Graph& other) {
         for (size_t i = 0; i < other.getGraph().size(); i++) {
