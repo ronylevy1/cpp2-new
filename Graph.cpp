@@ -205,10 +205,7 @@ bool Graph::operator>(const Graph& other) const {
 }
 
 bool Graph::operator>=(const Graph& other) const {
-    if ((*this > other) && (*this == other)) {  // If this is bigger then other and there equals
-        return true;
-    }
-    return false;
+    return (*this > other) && (*this == other);  // If this is bigger then other and there equals
 }
 
 bool Graph::operator==(const Graph& other) const {
@@ -217,10 +214,7 @@ bool Graph::operator==(const Graph& other) const {
 }
 
 bool Graph::operator!=(const Graph& other) const {
-    if (other == *this) {  // The graphs are equal
-        return false;
-    }
-    return true;
+    return !(other == *this);
 }
 
 Graph Graph::operator*(double num) const {
@@ -298,7 +292,7 @@ bool isContain(const Graph& other, const Graph& g) {
                         break;
                     }
                 }
-                if (contain != true) {  // If other isnt contained in this
+                if (!contain) {  // If other isnt contained in this
                     break;
                 }
             }
